@@ -1,4 +1,13 @@
 
+#Internet Research Task Force (IRTF)                           A. Langley
+#Request for Comments: 7748                                        Google
+#Category: Informational                                       M. Hamburg
+#ISSN: 2070-1721                             Rambus Cryptography Research
+#                                                              S. Turner
+#                                                                 sn3rd
+#                                                           January 2016#
+
+
 
 
 a24 = 39081
@@ -6,11 +15,9 @@ a24 = 39081
 
 def decodeUCoordinate(u, bits):
        u_list = [ord(b) for b in u]
-       # Ignore any unused bits.
        if bits % 8:
            u_list[-1] &= (1<<(bits%8))-1
        return decodeLittleEndian(u_list, bits)
-
 
 def decodeScalar448(k):
        k_list = [ord(b) for b in k]
@@ -36,7 +43,7 @@ def X448(u, k, bits):
     swap = 0
 
     for t in range (bits):
-     k_t = (k >> t)
+     k_t = (k >> t) & 1
      swap ^= k_t
      (x_2, x_3) = cswap(swap, x_2, x_3)
      (z_2, z_3) = cswap(swap, z_2, z_3)
@@ -58,5 +65,3 @@ def X448(u, k, bits):
 
 
 
-
-X448(1, 1, 24)
